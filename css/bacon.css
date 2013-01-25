@@ -1,0 +1,15 @@
+.reveal section img.bacon {
+  position: absolute;
+  display: block;
+  width: 400px;
+  height: 200px;
+  top: 30%;
+  left: 30%;
+  z-index: 100;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.notes {
+  display: none;
+}
