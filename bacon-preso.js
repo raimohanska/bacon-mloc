@@ -12,6 +12,10 @@ function keyDowns(keyCode) {
                     }) 
 }
 
+function keyState(keyCode, value) {
+  return keyDowns(keyCode).map([value]).merge(keyUps(keyCode).map([])).toProperty([]).skipDuplicates()
+}
+
 $(function() {
   // activity: EventStream
   var activity = $(window).asEventStream('mousemove keydown')
