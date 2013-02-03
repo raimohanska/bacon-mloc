@@ -24,4 +24,3 @@ $(function() {
   // active: Property Bool
   active = activity.awaiting(timeout)
 })
-

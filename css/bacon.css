@@ -13,3 +13,13 @@
 .notes {
   display: none;
 }
+
+#register {
+  font-size: 20px;
+}
+#register button {
+  border-radius: 10px;
+}
+#register label {
+  margin-right: 10px;
+}

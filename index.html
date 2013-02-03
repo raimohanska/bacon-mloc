@@ -14,7 +14,7 @@
 
 		<link rel="stylesheet" href="css/bacon.css">
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -27,197 +27,377 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
-
 			<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-  <section>
-    <h2>FRP with Bacon.js</h2>
-    <p>Juha Paananen / Reaktor</p>
-  </section>
+      <div class="slides">
+        <section>
+          <h2>FRP with Bacon.js</h2>
+          <p>Juha Paananen / Reaktor</p>
+        </section>
 
-  <section>
-    <h1>FRP</h1>
-      <p class="fragment">a paradigm</p>
-  </section>
+        <section>
+          <h1>FRP</h1>
+          <p>a paradigm</p>
+        </section>
 
-  <section>
-    <h2>FP - Lists</h2>
-    <h2>FRP - Events</h2>
-  </section>
-  
-  <section>
-    <h2>Imperative code</h2>
-    <pre><code contenteditable>
-      List<Employee> managers = new ArrayList()
-      for (Employee employee : employees) {
-        if (employee.title.equals("manager")) {
-          managers.add(e);
-        }
-      }
-      return managers;
-    </code></pre>
-    <p>variables, loops, ifs, mutable data structures</p>
-  </section>
+        <section>
+          <h2>FP - Lists</h2>
+          <h2>FRP - Events</h2>
+        </section>
+        
+        <section>
+          <h2>Imperative code</h2>
+          <pre><code contenteditable>
+List<Employee> managers = new ArrayList()
+for (Employee employee : employees) {
+  if (employee.title.equals("manager")) {
+    managers.add(e);
+  }
+}
+return managers;
+          </code></pre>
+          <p>variables, loops, ifs, mutable data structures</p>
+        </section>
 
-  <section>
-    <h2>FP</h2>
-    <pre><code contenteditable>
+        <section>
+          <h2>FP</h2>
+          <pre><code contenteditable>
 
-    employees.filter(_.title == "manager")
+          employees.filter(_.title == "manager")
 
-    </code></pre>
-  </section>
+          </code></pre>
+        </section>
 
-  <section>
-    <h1>FRP</h1>
-  </section>
+        <section>
+          <h1>FRP</h1>
+        </section>
 
-  <section>
-    <h2>Callback hell</h2>
-    <img class="bacon fragment" src="images/bacon.png">
-    <pre><code contenteditable>
-      $.ajax("/cats").done(function(cats) {
-        $.ajax("/dogs").done(function(dogs) {
-          doStuffWithCatsAndDogs(cats, dogs)
-        })
-      })
-    </code></pre>
-    <p>Imagine adding giraffes and bats</p>
-  </section>
-  <section >
-    <h2>State hell</h2>
-    <img class="bacon fragment" src="images/bacon.png">
-    <pre><code contenteditable>
-      var active = true;
-      var timeout = null;
-      function setInactive() {
-        active = false;
-      }
+        <section>
+          <h2>Callback hell</h2>
+          <img class="bacon fragment" src="images/bacon.png">
+          <pre><code contenteditable>
+$.ajax("/cats").done(function(cats) {
+  $.ajax("/dogs").done(function(dogs) {
+    doStuffWithCatsAndDogs(cats, dogs)
+  })
+})
+          </code></pre>
+          <p>Imagine adding giraffes and bats</p>
+        </section>
+        <section >
+          <h2>State hell</h2>
+          <img class="bacon fragment" src="images/bacon.png">
+          <pre><code contenteditable>
+var active = true;
+var timeout = null;
+function setInactive() {
+  active = false;
+}
 
-      $(window).on('keydown mousemove', function() {
-        active = true;
-        clearTimeout(timeout);
-        timeout = setTimeout(setInactive, 30000);
-      })
-    </code></pre>
-    <p>variables: 2</p>
-  </section>
-  
-  <section>
-    <h1>Bacon.js</h1>
-      <p class="fragment">a library</p>
-  </section>
+$(window).on('keydown mousemove', function() {
+  active = true;
+  clearTimeout(timeout);
+  timeout = setTimeout(setInactive, 30000);
+})
+          </code></pre>
+          <p>variables: 2</p>
+        </section>
+        
+        <section>
+          <h1>Bacon.js</h1>
+            <p class="fragment">a library</p>
+        </section>
 
-  <section>
-    <h2>Not a framework</h2>
-  </section>
-  <section>
-    <h2>Not a jQuery plugin</h2>
-  </section>
-  <section>
-    <h2>Not an insult</h2>
-  </section>
+        <section>
+          <h2>Not a framework</h2>
+        </section>
+        <section>
+          <h2>Not a jQuery plugin</h2>
+        </section>
+        <section>
+          <h2>Not an insult</h2>
+        </section>
 
-  <section>
-    <h2>~ is moar liek _</h2>
-  </section>
+        <section>
+          <h2>~ is moar liek _</h2>
+        </section>
 
-  <section>
-     <h1>EventStream</h1>
-     <p class="fragment">Source of events</p>
-  </section>
-  
-  <section>
-     <h1>EventStream</h1>
-     <p >Observable</p>
-  </section>
-  
-  <section>
-     <h1>EventStream</h1>
-     <p>map, filter, merge, concat, flatMap</p>
-  </section>
-  
-  <section>
-    <h1 class="eventstream-demo">Demo</h1>
-    <p class="notes">
-    keyups, map, filter
-    "wanna see flatMap"?
-    later, sequentialy
-    flatmap
-    delay
-    throttle
-    </p>
-  </section>
-  
-  <section>
-     <h1>Property</h1>
-     <p>time-varying value</p>
-  </section>
-  
-  <section>
-     <h1>Property</h1>
-     <p>Observable</p>
-  </section>
-  
-  <section>
-     <h1>Property</h1>
-     <p>map, combine, flatMap</p>
-  </section>
-  
-  <section>
-     <h2>keyUp = Event</h2>
-     <h2>keyState = Property</h2>
-  </section>
-  
-  <section>
-    <h1 class="property-demo">A=65 Q=81</h1>
-    <p class="notes">
-    keyUps(65).map(false).merge(keyDowns(65).map(true)).skipDuplicates().toProperty(false)
-    </p>
-  </section>
-  <section>
-    <h1>Callback hell?</h1>
-  </section>
-  
-  <section>
-  <h2>Bring the whole zoo</h2>
-    <pre><code contenteditable>
-      var cats = Bacon.UI.ajax("/cats").toProperty()
-      var dogs = Bacon.UI.ajax("/dogs").toProperty()
-      Bacon.combineAsArray(cats, dogs)
-           .onValues(doStuffWithCatsAndDogs)
-    </code></pre>
-  </section>
-  
-  <section>
-    <h1>State hell?</h1>
-  </section>
+        <section>
+           <h1>EventStream</h1>
+           <p class="fragment">Source of events</p>
+        </section>
+        
+        <section>
+           <h1>EventStream</h1>
+           <p >Observable</p>
+        </section>
+        
+        <section>
+           <h1>EventStream</h1>
+           <p>map, filter, merge, concat, flatMap</p>
+        </section>
+        
+        <section>
+          <h1 class="eventstream-demo">Demo</h1>
+          <p class="notes">
+          keyups, map, filter
+          "wanna see flatMap"?
+          later, sequentialy
+          flatmap
+          delay
+          throttle
+          </p>
+        </section>
+        
+        <section>
+           <h1>Property</h1>
+           <p>time-varying value</p>
+        </section>
+        
+        <section>
+           <h1>Property</h1>
+           <p>Observable</p>
+        </section>
+        
+        <section>
+           <h1>Property</h1>
+           <p>map, combine, flatMap</p>
+        </section>
+        
+        <section>
+           <h2>keyUp = Event</h2>
+           <h2>keyState = Property</h2>
+        </section>
+        
+        <section>
+          <h1 class="property-demo">A=65 Q=81</h1>
+          <p class="notes">
+          keyUps(65).map(false).merge(keyDowns(65).map(true)).skipDuplicates().toProperty(false)
+          </p>
+        </section>
+        <section>
+          <h1>Callback hell?</h1>
+        </section>
+        
+        <section>
+        <h2>Bring the whole zoo</h2>
+          <pre><code contenteditable>
+var cats = Bacon.UI.ajax("/cats").toProperty()
+var dogs = Bacon.UI.ajax("/dogs").toProperty()
+Bacon.combineAsArray(cats, dogs)
+     .onValues(doStuffWithCatsAndDogs)
+          </code></pre>
+        </section>
+        
+        <section>
+          <h1>State hell?</h1>
+        </section>
 
-  <section data-state="statehell">
-    <h2 class="state-demo">Variables: 0</h2>
-    <pre><code contenteditable>
-
+        <section data-state="statehell">
+          <h2 class="state-demo">Variables: 0</h2>
+          <pre><code contenteditable>
 var activity = $(window).asEventStream('mousemove keydown')
 var timeout = activity.throttle(30000)
 var active = activity.awaiting(timeout)
+          </code></pre>
+        </section>
+<!--
+        <section>
+          <h2>Forms</h2>
+        </section>
 
-    </code></pre>
-  </section>
+        <section>
+          <h2>Registration</h2>
+          <div id="register">
+            <div class="name"><label>Name</label><input type="text"></div>
+            <div class="email"><label>Email</label><input type="email"></div>
+            <div class="street"><label>Street</label><input type="text"></div>
+            <div class="zip"><label>Zip</label><input type="text"></div>
+            <div class="city"><label>City</label><input type="text"></div>
+            <button>Register</button>
+          </div>
+        </section>
 
-  <section>
-    <h1>K THX BYE</h1>
-  </section>
+        <section>
+          <h2>Capture text field value</h2>
+          <pre><code contenteditable>
+var name = Bacon.UI.textFieldValue($("#register .name input"))
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>More values</h2>
+          <pre><code contenteditable>
+function field(name) { 
+  var elem = $("#register ." + name + " input")
+  return Bacon.UI.textFieldValue(elem)
+}
+var name = field("name")
+var email = field("email")
+          </code></pre>
+        </section>
+        
+        <section>
+          <h2>Combine</h2>
+          <pre><code contenteditable>
+var registration = Bacon.combineTemplate({
+  name: field("name"),
+  email: field("email"),
+  address: {
+    street: field("street"),
+    zip: field("zip"),
+    city: field("city")
+  }
+})   
+          </code></pre>
+        </section>
 
-  <section>
-    <h2>Bacon.js</h2>
-    <h2>@raimohanska</h2>
-  </section>
+        <section>
+          <h2>AJAX POST</h2>
+          <pre><code contenteditable>
+$("#register button").asEventStream("click")
+  .map(registration)
+  .map(function(data) {
+    return { url: "/register", type: "post", 
+             data: JSON.stringify(data) }
+  })
+  .ajax()
+          </code></pre>
+        </section>
 
 
+        <section>
+          <h2>Add validation</h2>
+          <pre><code contenteditable>
+var registration = Bacon.combineTemplate({
+  name: validatedField("name", nonEmpty),
+  email: validatedField("email", validEmail),
+  address: {
+    street: validatedField("street", nonEmpty),
+    zip: validatedField("zip", validZip),
+    city: validatedField("city", nonEmpty)
+  }
+})
+          </code></pre>
+        </section>
+        <section>
+          <h2>Disable submit when invalid</h2>
+          <pre><code contenteditable>
+allValid().not().assign($("#register button"), "attr", "disabled")
+          </code></pre>
+        </section>
+        <section>
+          <h2>"Validation Framework"</h2>
+          <pre><code contenteditable>
+var validations = []
+function nonEmpty(x) { return x.length > 0 }
+function validatedField(name, validator) { 
+  var fieldValue = field(name)
+  var validity = fieldValue.map(validator)
+  validations.push(validity)
+  return fieldValue
+}
+function allValid() {
+  return Bacon.combineAll(validations, function(a,b) {
+    return a && b
+  })
+}
+          </code></pre>
+        </section>
+        <section>
+          <h2>Split into MVC Controllers</h2>
+          <pre><code contenteditable>
+var registration = Bacon.combineTemplate({
+  name: nameController.name,
+  email: emailController.email,
+  address: addressController.address
+})   
+          </code></pre>
+        </section>
+-->
+        <section>
+          <h2>Application Architecture</h2>
+        </section>
+
+        <section>
+          <h2>MVC</h2>
+        </section>
+
+        <section>
+          <h2>TodoMVC</h2>
+          <img src="images/todomvc.png">
+        </section>
+        <section>
+          <h2>Model</h2>
+          <pre><code contenteditable>
+// a real one, but stripped
+function TodoListModel() {
+  // todoAdded :: Bus Todo
+  this.todoAdded = new Bacon.Bus()
+  this.todoModified = new Bacon.Bus()
+  this.todoDeleted = new Bacon.Bus()
+  // allTodos :: Property [Todo]
+  this.allTodos
+  this.activeTodos
+  this.completedTodos
+}
+          </code></pre>
+        </section>
+        <section>
+          <h2>Model</h2>
+          <pre><code contenteditable>
+// a real one, but stripped
+function TodoListModel() {
+  this.todoAdded = new Bacon.Bus()
+  this.todoModified = new Bacon.Bus()
+  this.todoDeleted = new Bacon.Bus()
+  // changes :: EventStream ([Todo] -> [Todo])
+  var changes 
+  this.allTodos = changes.scan([], function(todos, f) { 
+    return f(todos) 
+  })
+}
+          </code></pre>
+          <p>baconjs.blogspot.com</p>
+        </section>
+        <section>
+          <h2>View</h2>
+          <pre><code contenteditable>
+function NewTodoView(element, model) {
+  // todoAdded :: EventStream Todo
+  var todoAdded;
+  model.todoAdded.plug(todoAdded);
+}
+          </code></pre>
+          <p>baconjs.blogspot.com</p>
+        </section>
+
+        <section>
+          <h2>Application</h2>
+          <pre><code contenteditable>
+function TodoApp() {
+  var model = new TodoListModel();
+  var hash = Bacon.UI.hash('#/');
+  new FilterView($('#filters'), hash);
+  new TodoListView($('#todo-list'), model, hash);
+  new NewTodoView($('#new-todo'), model);
+  new ClearCompletedView($('#clear-completed'), model);
+  new TodoCountView($('#todo-count'), model);
+  new ToggleAllView($('#toggle-all'), model);
+}
+          </code></pre>
+          <p>baconjs.blogspot.com</p>
+        </section>
+
+        <section>
+          <h1>K THX BYE</h1>
+        </section>
+
+        <section>
+          <h2>Bacon.js</h2>
+          <h2>@raimohanska</h2>
+        </section>
 			</div>
-
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
