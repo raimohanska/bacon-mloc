@@ -47,7 +47,7 @@
         
         <section>
           <h2>Imperative code</h2>
-          <pre><code contenteditable>
+          <pre><code >
 List<Employee> managers = new ArrayList()
 for (Employee employee : employees) {
   if (employee.title.equals("manager")) {
@@ -61,7 +61,7 @@ return managers;
 
         <section>
           <h2>FP</h2>
-          <pre><code contenteditable>
+          <pre><code >
 
           employees.filter(_.title == "manager")
 
@@ -75,7 +75,7 @@ return managers;
         <section>
           <h2>Callback hell</h2>
           <img class="bacon fragment" src="images/bacon.png">
-          <pre><code contenteditable>
+          <pre><code >
 $.ajax("/cats").done(function(cats) {
   $.ajax("/dogs").done(function(dogs) {
     doStuffWithCatsAndDogs(cats, dogs)
@@ -87,7 +87,7 @@ $.ajax("/cats").done(function(cats) {
         <section >
           <h2>State hell</h2>
           <img class="bacon fragment" src="images/bacon.png">
-          <pre><code contenteditable>
+          <pre><code >
 var active = true;
 var timeout = null;
 function setInactive() {
@@ -181,21 +181,50 @@ $(window).on('keydown mousemove', function() {
         
         <section>
         <h2>Bring the whole zoo</h2>
-          <pre><code contenteditable>
-var cats = Bacon.UI.ajax("/cats").toProperty()
-var dogs = Bacon.UI.ajax("/dogs").toProperty()
+          <pre><code >
+var cats = Bacon.UI.ajax("/cats")
+var dogs = Bacon.UI.ajax("/dogs")
 Bacon.combineAsArray(cats, dogs)
      .onValues(doStuffWithCatsAndDogs)
           </code></pre>
         </section>
         
         <section>
+        <h2>combineTemplate</h2>
+          <pre><code >
+function get(name) { return Bacon.UI.ajax(name) }
+var zoo = Bacon.combineTemplate({
+  mammals: {
+    cats: get("cats"),
+    dogs: get("dogs")
+  },
+  fish: {
+    sharks: get("sharks"),
+    whales: get("whales")
+  }
+})          </code></pre>
+        </section>
+        
+        <section>
+        <h2>combineTemplate</h2>
+          <pre><code >
+{
+  mammals: {
+    cats: ["Garfield", "Hercules"]
+    dogs: ["Yo Dawg"]
+  },
+  fish: {
+    sharks: ["Jaws"],
+    whales: ["I'm mammal!"]
+  }
+}        </code></pre></section>
+        <section>
           <h1>State hell?</h1>
         </section>
 
         <section data-state="statehell">
           <h2 class="state-demo">Variables: 0</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var activity = $(window).asEventStream('mousemove keydown')
 var timeout = activity.throttle(30000)
 var active = activity.awaiting(timeout)
@@ -220,14 +249,14 @@ var active = activity.awaiting(timeout)
 
         <section>
           <h2>Capture text field value</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var name = Bacon.UI.textFieldValue($("#register .name input"))
           </code></pre>
         </section>
         
         <section>
           <h2>More values</h2>
-          <pre><code contenteditable>
+          <pre><code >
 function field(name) { 
   var elem = $("#register ." + name + " input")
   return Bacon.UI.textFieldValue(elem)
@@ -239,7 +268,7 @@ var email = field("email")
         
         <section>
           <h2>Combine</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var registration = Bacon.combineTemplate({
   name: field("name"),
   email: field("email"),
@@ -254,7 +283,7 @@ var registration = Bacon.combineTemplate({
 
         <section>
           <h2>AJAX POST</h2>
-          <pre><code contenteditable>
+          <pre><code >
 $("#register button").asEventStream("click")
   .map(registration)
   .map(function(data) {
@@ -268,7 +297,7 @@ $("#register button").asEventStream("click")
 
         <section>
           <h2>Add validation</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var registration = Bacon.combineTemplate({
   name: validatedField("name", nonEmpty),
   email: validatedField("email", validEmail),
@@ -282,13 +311,13 @@ var registration = Bacon.combineTemplate({
         </section>
         <section>
           <h2>Disable submit when invalid</h2>
-          <pre><code contenteditable>
+          <pre><code >
 allValid().not().assign($("#register button"), "attr", "disabled")
           </code></pre>
         </section>
         <section>
           <h2>"Validation Framework"</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var validations = []
 function nonEmpty(x) { return x.length > 0 }
 function validatedField(name, validator) { 
@@ -306,7 +335,7 @@ function allValid() {
         </section>
         <section>
           <h2>Split into MVC Controllers</h2>
-          <pre><code contenteditable>
+          <pre><code >
 var registration = Bacon.combineTemplate({
   name: nameController.name,
   email: emailController.email,
@@ -329,7 +358,7 @@ var registration = Bacon.combineTemplate({
         </section>
         <section>
           <h2>Model</h2>
-          <pre><code contenteditable>
+          <pre><code >
 // a real one, but stripped
 function TodoListModel() {
   // todoAdded :: Bus Todo
@@ -345,7 +374,7 @@ function TodoListModel() {
         </section>
         <section>
           <h2>Model</h2>
-          <pre><code contenteditable>
+          <pre><code >
 // a real one, but stripped
 function TodoListModel() {
   this.todoAdded = new Bacon.Bus()
@@ -362,7 +391,7 @@ function TodoListModel() {
         </section>
         <section>
           <h2>View</h2>
-          <pre><code contenteditable>
+          <pre><code >
 function NewTodoView(element, model) {
   // todoAdded :: EventStream Todo
   var todoAdded;
@@ -374,7 +403,7 @@ function NewTodoView(element, model) {
 
         <section>
           <h2>Application</h2>
-          <pre><code contenteditable>
+          <pre><code >
 function TodoApp() {
   var model = new TodoListModel();
   var hash = Bacon.UI.hash('#/');
@@ -387,6 +416,32 @@ function TodoApp() {
 }
           </code></pre>
           <p>baconjs.blogspot.com</p>
+        </section>
+        
+        <section>
+        <h2>Recap</h2>
+        </section>
+
+        <section>
+        <h2>Future Plans</h2>
+        </section>
+
+        <section>
+        <h2>1.0</h2>
+        </section>
+
+        <section>
+        <h2>baconjs.com</h2>
+        </section>
+
+        <section>
+        <h2>bacon.UI</h2>
+        <h2>bacon.model</h2>
+        <h2>bacon.matchers</h2>
+        </section>
+
+        <section>
+        <h2>Bacon.jvm</h2>
         </section>
 
         <section>
