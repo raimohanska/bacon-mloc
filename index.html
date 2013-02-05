@@ -74,7 +74,6 @@ return managers;
 
         <section>
           <h2>Callback hell</h2>
-          <img class="bacon fragment" src="images/bacon.png">
           <pre><code >
 $.ajax("/cats").done(function(cats) {
   $.ajax("/dogs").done(function(dogs) {
@@ -84,24 +83,45 @@ $.ajax("/cats").done(function(cats) {
           </code></pre>
           <p>Imagine adding giraffes and bats</p>
         </section>
-        <section >
-          <h2>State hell</h2>
-          <img class="bacon fragment" src="images/bacon.png">
+        <section>
+        <h2>Bring the whole zoo</h2>
           <pre><code >
-var active = true;
-var timeout = null;
-function setInactive() {
-  active = false;
-}
-
-$(window).on('keydown mousemove', function() {
-  active = true;
-  clearTimeout(timeout);
-  timeout = setTimeout(setInactive, 30000);
-})
+var cats = Bacon.UI.ajax("/cats")
+var dogs = Bacon.UI.ajax("/dogs")
+Bacon.combineAsArray(cats, dogs)
+     .onValues(doStuffWithCatsAndDogs)
           </code></pre>
-          <p>variables: 2</p>
         </section>
+        
+        <section>
+        <h2>combineTemplate</h2>
+          <pre><code >
+function get(name) { return Bacon.UI.ajax(name) }
+var zoo = Bacon.combineTemplate({
+  mammals: {
+    cats: get("cats"),
+    dogs: get("dogs")
+  },
+  fish: {
+    sharks: get("sharks"),
+    whales: get("whales")
+  }
+})          </code></pre>
+        </section>
+        
+        <section>
+        <h2>combineTemplate</h2>
+          <pre><code >
+{
+  mammals: {
+    cats: ["Garfield", "Hercules"]
+    dogs: ["Yo Dawg"]
+  },
+  fish: {
+    sharks: ["Jaws"],
+    whales: ["I'm mammal!"]
+  }
+}        </code></pre></section>
         
         <section>
           <h1>Bacon.js</h1>
@@ -113,9 +133,6 @@ $(window).on('keydown mousemove', function() {
         </section>
         <section>
           <h2>Not a jQuery plugin</h2>
-        </section>
-        <section>
-          <h2>Not an insult</h2>
         </section>
 
         <section>
@@ -170,278 +187,24 @@ $(window).on('keydown mousemove', function() {
         </section>
         
         <section>
-          <h1 class="property-demo">A=65 Q=81</h1>
-          <p class="notes">
-          keyUps(65).map(false).merge(keyDowns(65).map(true)).skipDuplicates().toProperty(false)
-          </p>
-        </section>
-        <section>
-          <h1>Callback hell?</h1>
-        </section>
-        
-        <section>
-        <h2>Bring the whole zoo</h2>
-          <pre><code >
-var cats = Bacon.UI.ajax("/cats")
-var dogs = Bacon.UI.ajax("/dogs")
-Bacon.combineAsArray(cats, dogs)
-     .onValues(doStuffWithCatsAndDogs)
-          </code></pre>
-        </section>
-        
-        <section>
-        <h2>combineTemplate</h2>
-          <pre><code >
-function get(name) { return Bacon.UI.ajax(name) }
-var zoo = Bacon.combineTemplate({
-  mammals: {
-    cats: get("cats"),
-    dogs: get("dogs")
-  },
-  fish: {
-    sharks: get("sharks"),
-    whales: get("whales")
-  }
-})          </code></pre>
-        </section>
-        
-        <section>
-        <h2>combineTemplate</h2>
-          <pre><code >
-{
-  mammals: {
-    cats: ["Garfield", "Hercules"]
-    dogs: ["Yo Dawg"]
-  },
-  fish: {
-    sharks: ["Jaws"],
-    whales: ["I'm mammal!"]
-  }
-}        </code></pre></section>
-        <section>
-          <h1>State hell?</h1>
-        </section>
-
-        <section data-state="statehell">
-          <h2 class="state-demo">Variables: 0</h2>
-          <pre><code >
-var activity = $(window).asEventStream('mousemove keydown')
-var timeout = activity.throttle(30000)
-var active = activity.awaiting(timeout)
-          </code></pre>
-        </section>
-<!--
-        <section>
-          <h2>Forms</h2>
+        <img src="images/registration-form-ui.png">
         </section>
 
         <section>
-          <h2>Registration</h2>
-          <div id="register">
-            <div class="name"><label>Name</label><input type="text"></div>
-            <div class="email"><label>Email</label><input type="email"></div>
-            <div class="street"><label>Street</label><input type="text"></div>
-            <div class="zip"><label>Zip</label><input type="text"></div>
-            <div class="city"><label>City</label><input type="text"></div>
-            <button>Register</button>
-          </div>
+        <img src="images/registration-form-simple.png">
         </section>
 
         <section>
-          <h2>Capture text field value</h2>
-          <pre><code >
-var name = Bacon.UI.textFieldValue($("#register .name input"))
-          </code></pre>
-        </section>
-        
-        <section>
-          <h2>More values</h2>
-          <pre><code >
-function field(name) { 
-  var elem = $("#register ." + name + " input")
-  return Bacon.UI.textFieldValue(elem)
-}
-var name = field("name")
-var email = field("email")
-          </code></pre>
-        </section>
-        
-        <section>
-          <h2>Combine</h2>
-          <pre><code >
-var registration = Bacon.combineTemplate({
-  name: field("name"),
-  email: field("email"),
-  address: {
-    street: field("street"),
-    zip: field("zip"),
-    city: field("city")
-  }
-})   
-          </code></pre>
+        <img class="bacon fragment" src="images/bacon.png">
+        <img src="images/registration-form-thorough.png">
         </section>
 
         <section>
-          <h2>AJAX POST</h2>
-          <pre><code >
-$("#register button").asEventStream("click")
-  .map(registration)
-  .map(function(data) {
-    return { url: "/register", type: "post", 
-             data: JSON.stringify(data) }
-  })
-  .ajax()
-          </code></pre>
-        </section>
-
-
-        <section>
-          <h2>Add validation</h2>
-          <pre><code >
-var registration = Bacon.combineTemplate({
-  name: validatedField("name", nonEmpty),
-  email: validatedField("email", validEmail),
-  address: {
-    street: validatedField("street", nonEmpty),
-    zip: validatedField("zip", validZip),
-    city: validatedField("city", nonEmpty)
-  }
-})
-          </code></pre>
-        </section>
-        <section>
-          <h2>Disable submit when invalid</h2>
-          <pre><code >
-allValid().not().assign($("#register button"), "attr", "disabled")
-          </code></pre>
-        </section>
-        <section>
-          <h2>"Validation Framework"</h2>
-          <pre><code >
-var validations = []
-function nonEmpty(x) { return x.length > 0 }
-function validatedField(name, validator) { 
-  var fieldValue = field(name)
-  var validity = fieldValue.map(validator)
-  validations.push(validity)
-  return fieldValue
-}
-function allValid() {
-  return Bacon.combineAll(validations, function(a,b) {
-    return a && b
-  })
-}
-          </code></pre>
-        </section>
-        <section>
-          <h2>Split into MVC Controllers</h2>
-          <pre><code >
-var registration = Bacon.combineTemplate({
-  name: nameController.name,
-  email: emailController.email,
-  address: addressController.address
-})   
-          </code></pre>
-        </section>
--->
-        <section>
-          <h2>Application Architecture</h2>
+        <img src="images/registration-form-bacon.png">
         </section>
 
         <section>
-          <h2>MVC</h2>
-        </section>
-
-        <section>
-          <h2>TodoMVC</h2>
-          <img src="images/todomvc.png">
-        </section>
-        <section>
-          <h2>Model</h2>
-          <pre><code >
-// a real one, but stripped
-function TodoListModel() {
-  // todoAdded :: Bus Todo
-  this.todoAdded = new Bacon.Bus()
-  this.todoModified = new Bacon.Bus()
-  this.todoDeleted = new Bacon.Bus()
-  // allTodos :: Property [Todo]
-  this.allTodos
-  this.activeTodos
-  this.completedTodos
-}
-          </code></pre>
-        </section>
-        <section>
-          <h2>Model</h2>
-          <pre><code >
-// a real one, but stripped
-function TodoListModel() {
-  this.todoAdded = new Bacon.Bus()
-  this.todoModified = new Bacon.Bus()
-  this.todoDeleted = new Bacon.Bus()
-  // changes :: EventStream ([Todo] -> [Todo])
-  var changes 
-  this.allTodos = changes.scan([], function(todos, f) { 
-    return f(todos) 
-  })
-}
-          </code></pre>
-          <p>baconjs.blogspot.com</p>
-        </section>
-        <section>
-          <h2>View</h2>
-          <pre><code >
-function NewTodoView(element, model) {
-  // todoAdded :: EventStream Todo
-  var todoAdded;
-  model.todoAdded.plug(todoAdded);
-}
-          </code></pre>
-          <p>baconjs.blogspot.com</p>
-        </section>
-
-        <section>
-          <h2>Application</h2>
-          <pre><code >
-function TodoApp() {
-  var model = new TodoListModel();
-  var hash = Bacon.UI.hash('#/');
-  new FilterView($('#filters'), hash);
-  new TodoListView($('#todo-list'), model, hash);
-  new NewTodoView($('#new-todo'), model);
-  new ClearCompletedView($('#clear-completed'), model);
-  new TodoCountView($('#todo-count'), model);
-  new ToggleAllView($('#toggle-all'), model);
-}
-          </code></pre>
-          <p>baconjs.blogspot.com</p>
-        </section>
-        
-        <section>
-        <h2>Recap</h2>
-        </section>
-
-        <section>
-        <h2>Future Plans</h2>
-        </section>
-
-        <section>
-        <h2>1.0</h2>
-        </section>
-
-        <section>
-        <h2>baconjs.com</h2>
-        </section>
-
-        <section>
-        <h2>bacon.UI</h2>
-        <h2>bacon.model</h2>
-        <h2>bacon.matchers</h2>
-        </section>
-
-        <section>
-        <h2>Bacon.jvm</h2>
+        <a href="https://github.com/raimohanska/bacon-devday-code">https://github.com/raimohanska/bacon-devday-code</a>
         </section>
 
         <section>
