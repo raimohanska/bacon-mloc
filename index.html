@@ -84,7 +84,7 @@ $.ajax("/cats").done(function(cats) {
           <p>Imagine adding giraffes and bats</p>
         </section>
         <section>
-        <h2>Bring the whole zoo</h2>
+        <h2>FRP</h2>
           <pre><code >
 var cats = Bacon.UI.ajax("/cats")
 var dogs = Bacon.UI.ajax("/dogs")
@@ -94,7 +94,7 @@ Bacon.combineAsArray(cats, dogs)
         </section>
         
         <section>
-        <h2>combineTemplate</h2>
+        <h2>Moar animals</h2>
           <pre><code >
 function get(name) { return Bacon.UI.ajax(name) }
 var zoo = Bacon.combineTemplate({
@@ -184,6 +184,11 @@ var zoo = Bacon.combineTemplate({
         <section>
            <h2>keyUp = Event</h2>
            <h2>keyState = Property</h2>
+        </section>
+
+        <section>
+           <h2 id="property-demo">User activity</h2>
+           <p>(demo)</p>
         </section>
         
         <section>
