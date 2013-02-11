@@ -23,3 +23,12 @@
 #register label {
   margin-right: 10px;
 }
+.reaktor {
+  background: url("../images/Reaktor_Logo_Black.png");
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  display: inline-block;
+  width: 150px;
+  color: rgba(0,0,0,0);
+}
