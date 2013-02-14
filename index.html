@@ -69,74 +69,17 @@ return managers;
         </section>
 
         <section>
-          <h1>FRP</h1>
+          <h2>FP - for loops</h2>
+          <h2>FRP - callbacks</h2>
         </section>
 
-        <section>
-          <h2>Callback hell</h2>
-          <pre><code >
-$.ajax("/cats").done(function(cats) {
-  $.ajax("/dogs").done(function(dogs) {
-    doStuffWithCatsAndDogs(cats, dogs)
-  })
-})
-          </code></pre>
-          <p>Imagine adding giraffes and bats</p>
-        </section>
-        <section>
-        <h2>FRP</h2>
-          <pre><code >
-var cats = Bacon.UI.ajax("/cats")
-var dogs = Bacon.UI.ajax("/dogs")
-Bacon.combineAsArray(cats, dogs)
-     .onValues(doStuffWithCatsAndDogs)
-          </code></pre>
-        </section>
-        
-        <section>
-        <h2>Moar animals</h2>
-          <pre><code >
-function get(name) { return Bacon.UI.ajax(name) }
-var zoo = Bacon.combineTemplate({
-  mammals: {
-    cats: get("cats"),
-    dogs: get("dogs")
-  },
-  fish: {
-    sharks: get("sharks"),
-    whales: get("whales")
-  }
-})          </code></pre>
-        </section>
-        
-        <section>
-        <h2>combineTemplate</h2>
-          <pre><code >
-{
-  mammals: {
-    cats: ["Garfield", "Hercules"]
-    dogs: ["Yo Dawg"]
-  },
-  fish: {
-    sharks: ["Jaws"],
-    whales: ["I'm mammal!"]
-  }
-}        </code></pre></section>
-        
         <section>
           <h1>Bacon.js</h1>
             <p class="fragment">a library</p>
         </section>
 
         <section>
-          <h2>Not a framework</h2>
-        </section>
-        <section>
-          <h2>Not a jQuery plugin</h2>
-        </section>
-
-        <section>
-          <h2>~ is moar liek _</h2>
+          <h2>~ is liek _ 4 Events</h2>
         </section>
 
         <section>
@@ -186,11 +129,6 @@ var zoo = Bacon.combineTemplate({
            <h2>keyState = Property</h2>
         </section>
 
-        <section>
-           <h2 id="property-demo">User activity</h2>
-           <p>(demo)</p>
-        </section>
-        
         <section>
         <img src="images/registration-form-ui.png">
         </section>
