@@ -32,3 +32,8 @@
   width: 150px;
   color: rgba(0,0,0,0);
 }
+
+.spreadsheet input {
+  font-size: 20px;
+  width: 50px;
+}
